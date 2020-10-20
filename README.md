@@ -6,53 +6,47 @@ int main()
 	cin>>t;
 	while(t--)
 	{
-		string s;
-		cin>>s;
-		int c=0,mn=INT_MAX;
-	;
-      set<char>setcount;  
-		 for(int i=0;i<s.length();i++)
-		 {
-		 	 
-		 	  setcount.insert(s[i]);       // wanted to check how many distinct element is there 
-		 }
-		 
-		 for(int i=0;i<s.length();i++)
-		 {
-		 	int c=0,l=0;
-		 	   int p=i;
-		 	   int b[256]={0};
-		 	   
-		 	   while(1)
-		 	   {
-		 	   	   if(c!=setcount.size()&&p==s.length())                  
-		 	   	      {
-		 	   	      	l=INT_MAX;
-		 	   	      	break;
-						  }
-		 	   	 
-		 	   	    if(c==setcount.size())
-		 	   	    {
-		 	   	    	
-		 	   	    	break;
-					}
-					  if(b[s[p]]==0)
-					    {
-					    	c++;
-					    	b[s[p]]++;
-						}
-					  	
-					   
-					l++;		
-						p++;
-				}
-				mn=min(mn,l);
-						
-		 }
-		   
-		
-		 cout<<mn<<endl;
-	}
+       string str;
+       cin>>str;
+       int a[256]={0};
+       set<char>setcount;
+       for(int i=0;i<str.length();i++)
+       {
+       	   setcount.insert(str[i]);
+	   }
+	   
+	   
+       int countdiselem=0,startingindexofwindow=0,k=INT_MAX,flag;
+       for(int i=0;i<str.length();i++)
+       {
+       	     a[str[i]]++;
+       	     if(a[str[i]]==1)
+       	       countdiselem++;
+       	     
+		     if(countdiselem==setcount.size())
+		     {
+		       //until its first exist  more than 1 
+		         while(a[str[startingindexofwindow]]>1)
+		         {
+		         	if(a[str[startingindexofwindow]]>1)
+					 {
+					  a[str[startingindexofwindow]]--;
+		         	     startingindexofwindow++;
+		            }
+				 }
+				 
+				 int window_size=i-startingindexofwindow+1;  //window length;
+				   if(window_size<k)   //compare every time it is small or not;
+				   {
+				   	  k=window_size;
+				   	  flag=startingindexofwindow;
+				   }
+				 
+			 }
+	   }
+   		string res=str.substr(flag,k);
+   		cout<<res.length()<<endl;
+}
 	
 	
 	
